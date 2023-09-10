@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .my-input {
+
+            display: inline-block;
+
+            padding: 10px;
+            margin: 10px;
+
+        }
+
+        .submit-button {
+            float: left;
+            margin: 10px;
+            padding: 12px;
+            padding-left: 290px;
+            padding-right: 290px;
+
+        }
+
+        .dual-table {
+
+            float: left;
+            margin-top: 25px;
+            margin-left: 9px;
+        }
+
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding-right: 50px;
+            padding-left: 50px;
+            color: rgb(220, 20, 137);
+
+
+        }
+
+        h2 {
+            margin: 15px;
+            color: rgb(220, 20, 137);
+            font-weight: 600;
+
+        }
+
+        .submit-button {
+            color: rgb(220, 20, 137);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-container">
+                <form action="">
+                    <h2>Öğrenci Bilgileri</h2>
+                    <input class="my-input" type="text" id="studentNo" name="ogrenciNo" placeholder="öğrenci numarası">
+
+                    <input class="my-input" type="text" id="visa" name="vize" placeholder="vize notunu giriniz">
+
+                    <input class="my-input" type="text" name="final" id="final" placeholder="final notunu giriniz">
+                    <br>
+                    <input class="submit-button" type="submit" name="hesapla" value="Hesapla " id="Hesapla">
+                    <br>
+
+                </form>
+            </div>
+        </div>
+        <div class="dual-table">
+            <div class="table-container2">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>No</th>
+                            <th>Ad </th>
+                            <th>Soyad</th>
+                            <th>Vize</th>
+                            <th>Final</th>
+                            <th>Ortalama</th>
+                            <th>Düzenle</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+            <div id="pagination"></div>
+        </div>
+    </div>
+    <script>
+
+
+        const students = [
+            {
+                "studentNo": 123456,
+                "name": "John",
+                "lastname": "Doe",
+                "visa": 55,
+                "final": 89,
+                "average": null,
+                "id": "12345abcde"
+            },
+            {
+                "studentNo": 234567,
+                "name": "Jane",
+                "lastname": "Smith",
+                "visa": 100 ,
+                "final": 94,
+                "average": null,
+                "id": "abcde67890"
+            },
+            {
+                "studentNo": 345678,
+                "name": "David",
+                "lastname": "Johnson",
+                "visa": 78,
+                "final": 95,
+                "average": null,
+                "id": "67890fghij"
+            },
+            {
+                "studentNo": 456789,
+                "name": "Emily",
+                "lastname": "Anderson",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "fghij12345"
+            },
+            {
+                "studentNo": 567890,
+                "name": "Michael",
+                "lastname": "Brown",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "67890abcde"
+            },
+            {
+                "studentNo": 678901,
+                "name": "Sophia",
+                "lastname": "Wilson",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "abcde67890"
+            },
+            {
+                "studentNo": 789012,
+                "name": "Oliver",
+                "lastname": "Davis",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "67890fghij"
+            },
+            {
+                "studentNo": 890123,
+                "name": "Emma",
+                "lastname": "Lenon",
+                "visa": 45,
+                "final": 74,
+                "average": null,
+                "id": "fghij12345"
+            },
+            {
+                "studentNo": 901234,
+                "name": "Liam",
+                "lastname": "Garcia",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "12345abcde"
+            },
+            {
+                "studentNo": 101112,
+                "name": "Ava",
+                "lastname": "Rodriguez",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "abcde67890"
+            },
+            {
+                "studentNo": 111213,
+                "name": "Noah",
+                "lastname": "Lopez",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "67890fghij"
+            },
+            {
+                "studentNo": 121314,
+                "name": "Isabella",
+                "lastname": "Hernandez",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "fghij12345"
+            },
+            {
+                "studentNo": 131415,
+                "name": "Sophia",
+                "lastname": "Gonzalez",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "67890abcde"
+            },
+            {
+                "studentNo": 141516,
+                "name": "Mason",
+                "lastname": "Perez",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "abcde67890"
+            },
+            {
+                "studentNo": 151617,
+                "name": "Charlotte",
+                "lastname": "Carter",
+                "visa": null,
+                "final": null,
+                "average": null,
+                "id": "67890fghij"
+            }
+        ];
+        const studentObjectKeys = ["id", "studentNo", "name", "lastname", "visa", "final", "average"];
+
+        const form = document.querySelector('form');              // formu yakalama
+        const table = document.querySelector('table');             // tabloyu yakalama
+
+        const pageSize =5; // Sayfa başına gösterilecek öğrenci sayısı
+        let currentPage =1 ; // Geçerli sayfa numarası
+
+        form.addEventListener('submit', function (e) {   // formu getirdiğinde çalışacak işlev
+            e.preventDefault();
+            // formun varsayılan davranışını engelle   
+            console.log(e);
+            const studentNo = document.getElementById('studentNo').value.trim();
+            const visa = document.getElementById('visa').value.trim();
+            const final = document.getElementById('final').value.trim();
+            const student = {
+                visa,
+                studentNo,
+                final
+            }
+
+
+            if (!studentNo || !visa || !final) {
+                alert("Lütfen tüm alanları doldurun")
+                return
+            }
+
+
+            const studentInTable = document.querySelector(`[data-student-no="${studentNo}"]`);
+            if (studentInTable) {  //öğrenci bilgilerini güncelleme
+                studentInTable.querySelector('[data-column-name="visa"]').textContent = visa;
+                studentInTable.querySelector('[data-column-name="final"]').textContent = final;
+                const averageCell = studentInTable.querySelector('[data-column-name="average"]');
+                const average = parseFloat(visa) * 0.40 + parseFloat(final) * 0.60;
+                averageCell.textContent = average.toFixed(2);
+            } else {
+                // createStudentTableRow(student)
+                alert('Böyle bir öğrenci yok');
+            }
+        });
+
+        function createStudentTableRow(student) {
+            const row = document.createElement("tr"); //yeni tablo satırı oluşturur
+            row.setAttribute("data-student-no", student.studentNo);
+
+            studentObjectKeys.forEach(objectKey => {
+                if (objectKey == "average") return
+                const tableCell = document.createElement("td"); //yeni bir hücre oluştur
+                tableCell.setAttribute('data-column-name', objectKey); // keylere data-column-name attributenü ekler
+                tableCell.textContent = student[objectKey] || " "; // hücreye öğrenci numarasını ekler
+                row.appendChild(tableCell); // Hücreyi tablo satırına ekler
+            });
+
+            const averageCell = document.createElement("td");
+            averageCell.setAttribute('data-column-name', "average");
+            if (student.visa && student.final) {
+                const average = parseFloat(student.visa) * 0.40 + parseFloat(student.final) * 0.60;
+                averageCell.textContent = average.toFixed(2);
+            }
+            else {
+                averageCell.textContent = "";
+            }
+            row.appendChild(averageCell); // row satırına ekler
+
+
+            const editCell = document.createElement("td");
+            const editButton = document.createElement('button');
+            row.appendChild(editCell);
+            editCell.appendChild(editButton);
+            editButton.textContent = 'Düzenle';
+            editButton.addEventListener('click', function () {
+                document.getElementById('studentNo').value = student.studentNo;
+                document.getElementById('visa').value = student.visa;
+                document.getElementById('final').value = student.final;
+            });
+
+
+            table.appendChild(row);
+
+        }
+
+        function generateTable(page) {
+            // Tabloyu oluşturan ve gösteren işlev
+            // Sayfa başlangıç ve bitiş indeksleri hesaplandı
+            const startIndex = (page - 1) * pageSize;
+            const endIndex = startIndex + pageSize;
+
+            // Tablo içeriği temizlendi
+            table.innerHTML = "";
+
+            // Sayfa içerisindeki öğrenciler oluşturuldu
+            students.slice(startIndex, endIndex).forEach(function (student) {
+                createStudentTableRow(student);
+            });
+        }
+        function updatePagination() {
+            // Sayfalama düğmelerini güncelleyen işlev
+            const totalPages = Math.ceil(students.length / pageSize); // Toplam sayfa sayısı hesaplandıe
+
+            const paginationContainer = document.getElementById('pagination');
+            paginationContainer.innerHTML = "";
+
+            for (let i = 1; i <= totalPages; i++) {
+                
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                if (i === currentPage) {
+                    pageButton.disabled = true;
+                } else {
+                    pageButton.addEventListener('click', function () {
+                        currentPage = i;
+                        generateTable(currentPage);
+                        updatePagination();
+                    });
+                }
+                paginationContainer.appendChild(pageButton);
+            }
+        }
+
+        generateTable(currentPage);
+        updatePagination();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
